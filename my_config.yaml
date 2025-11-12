@@ -1,8 +1,8 @@
-# Deep-learning-base Ionogram Automatic Scaler Configuration File
+## Deep-learning-base Ionogram Automatic Scaler Configuration File
 
 # Data Parameters
 Data:
-    BasePath: ./dataset/
+    BasePath: E:/zju/AtuomaticScaling/DIAS/dataset/
     TrainListFile: train.lst
     TestListFile: test.lst
     # pad input height to 512
@@ -10,13 +10,16 @@ Data:
     # pad input width to 512
     PadWidth: 512
     # number of input channels
-    ChannelNum: 3
+    ChannelNum: 3 
     # Number of predicted classes
     ClassNum: 3
+
 # Model Parameters
 Model:
     Type: FPN
-    # Backbone available params:
+    # Type: Unet
+
+    # Backbone available params: 
     # VGG 'vgg16' 'vgg19'
     # ResNet 'resnet18' 'resnet34' 'resnet50' 'resnet101' 'resnet152'
     # SE-ResNet 'seresnet18' 'seresnet34' 'seresnet50' 'seresnet101' 'seresnet152'
@@ -28,12 +31,15 @@ Model:
     # MobileNet 'mobilenet' 'mobilenetv2'
     # EfficientNet 'efficientnetb0' 'efficientnetb1' 'efficientnetb2' 'efficientnetb3' 'efficientnetb4' 'efficientnetb5' efficientnetb6' efficientnetb7'
     Backbone: resnet50
+    # Backbone: vgg16
+    # Backbone: efficientnetb5
+    
     # BackboneWeights available params:
     # None imagenet
     BackboneWeights: None
     # Number of pyramid block filters
     PyramidBlockFilters: 256
-    # optimizer
+    # optimizer: Adam RAdam SGD
     Optimizer: Adam
     # Learning rate
     LearningRate: 0.0001
@@ -57,7 +63,22 @@ Train:
     # test img plot interval
     PlotInterval: 1000
     # img save dirs's
-    ImgSaveDir: /home/Public/SmartRadarAssistant/DIonoAutoScaler/FPN_compare/Res50FPN/imgs/
+    ImgSaveDir: E:/zju/AtuomaticScaling/DIAS/result/test/vis_imgs/
     # model save dir
-    ModelSaveDir: /home/Public/SmartRadarAssistant/DIonoAutoScaler/FPN_compare/Res50FPN/models/
-    HistLogDir: /home/Public/SmartRadarAssistant/DIonoAutoScaler/FPN_compare/Res50FPN/
+    ModelSaveDir: E:/zju/AtuomaticScaling/DIAS/result/test/models/
+    HistLogDir: E:/zju/AtuomaticScaling/DIAS/result/test/models/
+
+Test:
+    # Options: [OnlyMinHMaxF] [AllOutput]
+    TestSave: OnlyMinHMaxF
+    ModelPath: E:/zju/AtuomaticScaling/DIAS/result/_FPN_resnet50_Adam/models/STEP_158000.model
+    PostProcess: None
+    SavePath: E:/zju/AtuomaticScaling/DIAS/result/_FPN_resnet50_Adam/models/
+    # img save dirs's
+    ImgSaveDir: E:/zju/AtuomaticScaling/DIAS/result/_FPN_resnet50_Adam/test_imgs/
+    Threshold: 0.3
+    ScaleOnly: True
+
+Eval:
+    ResultPath: E:/zju/AtuomaticScaling/DIAS/result/_FPN_resnet50_Adam/models/MinHMaxF.npy
+    

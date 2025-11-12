@@ -60,18 +60,27 @@ class IonoDataManager():
         """get train batch
         """
         #print(len(self.train_data_list))
-        #rand_id = int(np.random.randint(low=0,high=len(self.train_data_list),size=1))
+        # rand_id = int(np.random.randint(low=0,high=len(self.train_data_list),size=1))
         rand_id = t_id
+
         x_test= np.zeros([1,self.pad_height,self.pad_height,self.channel_num])
+        modx_test= np.zeros([1,self.pad_height,self.pad_height,self.channel_num])
         y_test = np.zeros([1,self.pad_height,self.pad_height,self.class_num])
         art_test = np.zeros([1,self.pad_height,self.pad_height,self.class_num])
 
-        ori_x_name = self.base_path + self.test_data_list[rand_id].split(' ')[0] 
+        ori_x_name = self.base_path + self.test_data_list[rand_id].split(' ')[0]
+        # rsfname = '20241015130200'
+        # rsfname = '20241016050102'
+        rsfname = '20241119163000'
+        ori_modx_name = 'E:/zju/AtuomaticScaling/RSF_SAO/rotatedZf_matrix_' + rsfname + '.pickle'
         ori_y_name = self.base_path + self.test_data_list[rand_id].split(' ')[1]
         art_y_name = self.base_path + self.test_data_list[rand_id].split(' ')[2].rstrip()
 
         t_file = open(ori_x_name,'rb')
         ori_x = pickle.load(t_file)
+        t_file.close()
+        t_file = open(ori_modx_name,'rb')
+        ori_modx = pickle.load(t_file)
         t_file.close()
         t_file = open(ori_y_name,'rb')
         ori_y = pickle.load(t_file)
@@ -82,6 +91,8 @@ class IonoDataManager():
 
         ori_height = np.shape(ori_x)[0]
         ori_width = np.shape(ori_x)[1]
+        modx_test[0,:np.shape(ori_modx)[0],:np.shape(ori_modx)[1],0] = ori_modx[:,:,0]/np.max(ori_modx[:,:,0])
+        modx_test[0,:np.shape(ori_modx)[0],:np.shape(ori_modx)[1],1] = ori_modx[:,:,1]/np.max(ori_modx[:,:,1])
         x_test[0,:ori_height,:ori_width,0] = ori_x[:,:,0]/np.max(ori_x[:,:,0])
         x_test[0,:ori_height,:ori_width,1] = ori_x[:,:,1]/np.max(ori_x[:,:,1])
         x_test[0,:ori_height,:ori_width,2] = ori_x[:,:,2]/np.max(ori_x[:,:,2])
@@ -92,7 +103,8 @@ class IonoDataManager():
         art_test[0,:ori_height,:ori_width,:] = art_y[:,:,:]/1.0
         #art_test[0,:,:,:] = refine_gt(art_test[0,:,:,:])
 
-        return x_test, y_test, art_test
+        # return x_test, y_test, art_test
+        return modx_test, y_test, art_test
 
     def get_scale_only(self, id):
         """get train batch

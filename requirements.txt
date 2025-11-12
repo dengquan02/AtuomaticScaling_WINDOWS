@@ -1,0 +1,10 @@
+# Core runtime
+tensorflow
+segmentation-models
+numpy
+PyYAML
+matplotlib
+
+# Note:
+# - 如果使用 GPU，可根据环境改为安装 `tensorflow-gpu`。
+# - 版本与系统/驱动强相关，如需 Python 3.6 兼容，可选用较低版本的 TensorFlow。

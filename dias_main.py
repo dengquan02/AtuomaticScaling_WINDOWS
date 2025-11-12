@@ -53,7 +53,7 @@ if __name__ == '__main__':
     parser.add_argument('--train', dest='run_train', action='store_true', default=False, help='Launch training')
     parser.add_argument('--test', dest='run_test', action='store_true', default=False, help='Launch testing on a list of Ionograms')
     parser.add_argument('--eval', dest='run_eval', action='store_true', default=False, help='Launch evaluation on a list of Ionograms')
-    parser.add_argument('--gpuid',dest='gpu_id',type=int, default=0, help='Run On a certain GPU')
+    parser.add_argument('--gpu_id',dest='gpu_id',type=int, default=0, help='Run On a certain GPU')
 
     args = parser.parse_args()
     

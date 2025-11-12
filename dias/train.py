@@ -4,6 +4,7 @@ from dias.model.FPN_Model import Dias_FPN
 from dias.model.Unet_Model import Dias_Unet
 from dias.dataIO.data import IonoDataManager
 import segmentation_models as sm
+# matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
 import os
 
@@ -46,7 +47,7 @@ def train(cfgs):
     hist_list = list()
     print('Start Training')
     # start training
-    for idx in range(total_step):
+    for idx in range(total_step): 
         x_train, y_train = dataManager.get_train_batch()
         hist = model.train_on_batch(x=x_train,y=y_train)
         hist_list.append(hist)
@@ -60,6 +61,25 @@ def train(cfgs):
         if idx % plot_inverval == 0:
             x_train, y_train = dataManager.get_train_batch()
             y_test = model.predict(x_train)
+
+            plt.figure(figsize=(24,8))
+            plt.subplot(1,3,1)
+            plt.imshow(x_train[0,:,:,0])
+            plt.subplot(1,3,2)
+            plt.imshow(x_train[0,:,:,1])
+            plt.subplot(1,3,3)
+            plt.imshow(x_train[0,:,:,2])
+            plt.close()
+
+            plt.figure(figsize=(24,8))
+            plt.subplot(1,3,1)
+            plt.imshow(y_train[0,:,:,0])
+            plt.subplot(1,3,2)
+            plt.imshow(y_train[0,:,:,1])
+            plt.subplot(1,3,3)
+            plt.imshow(y_train[0,:,:,2])
+            plt.close()
+
             plt.figure(figsize=(24,8))
             plt.subplot(1,3,1)
             plt.imshow(x_train[0,:,:,:])
@@ -73,6 +93,7 @@ def train(cfgs):
         # Save model
         if idx % save_inverval == 0:
             model.save(model_save_dir+'STEP_{}.model'.format(idx))
+            model.save_weights(model_save_dir+'STEP_{}.model'.format(idx))
             np.save(model_save_dir+'hist.npy',hist_list)
     
     return

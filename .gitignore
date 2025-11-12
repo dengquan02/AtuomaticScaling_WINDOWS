@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# Environments
+.venv/
+venv/
+env/
+.env
+
+# Build/Dist
+build/
+dist/
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Project artifacts
+result/
+models/
+*.model
+*.h5
+*.npy
+*.npz
+*.ckpt*
+*.png
+*.jpg
+*.jpeg
+
+# Datasets (keep list files)
+dataset/*
+!dataset/train.lst
+!dataset/test.lst
+
+# Converted/raw data
+*.mat
+*.sao
+*.zip
+*.tar
+*.tar.gz
