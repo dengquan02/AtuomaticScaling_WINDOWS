@@ -1,8 +1,9 @@
+import os
+os.environ['SM_FRAMEWORK'] = 'tf.keras'
+
 import segmentation_models as sm
 # from keras_radam import RAdam
 import tensorflow as tf
-import os
-# from keras import Model, layers, optimizers
 from tensorflow.keras import Model, layers, optimizers
 # tensorflow.keras is the adopted version of keras by tensorflow. 
 

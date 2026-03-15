@@ -64,24 +64,24 @@ class IonoDataManager():
         rand_id = t_id
 
         x_test= np.zeros([1,self.pad_height,self.pad_height,self.channel_num])
-        modx_test= np.zeros([1,self.pad_height,self.pad_height,self.channel_num])
+        # modx_test= np.zeros([1,self.pad_height,self.pad_height,self.channel_num])
         y_test = np.zeros([1,self.pad_height,self.pad_height,self.class_num])
         art_test = np.zeros([1,self.pad_height,self.pad_height,self.class_num])
 
         ori_x_name = self.base_path + self.test_data_list[rand_id].split(' ')[0]
         # rsfname = '20241015130200'
         # rsfname = '20241016050102'
-        rsfname = '20241119163000'
-        ori_modx_name = 'E:/zju/AtuomaticScaling/RSF_SAO/rotatedZf_matrix_' + rsfname + '.pickle'
+        # rsfname = '20241119163000'
+        # ori_modx_name = 'E:/zju/AtuomaticScaling/RSF_SAO/rotatedZf_matrix_' + rsfname + '.pickle'
         ori_y_name = self.base_path + self.test_data_list[rand_id].split(' ')[1]
         art_y_name = self.base_path + self.test_data_list[rand_id].split(' ')[2].rstrip()
 
         t_file = open(ori_x_name,'rb')
         ori_x = pickle.load(t_file)
         t_file.close()
-        t_file = open(ori_modx_name,'rb')
-        ori_modx = pickle.load(t_file)
-        t_file.close()
+        # t_file = open(ori_modx_name,'rb')
+        # ori_modx = pickle.load(t_file)
+        # t_file.close()
         t_file = open(ori_y_name,'rb')
         ori_y = pickle.load(t_file)
         t_file.close()
@@ -91,8 +91,8 @@ class IonoDataManager():
 
         ori_height = np.shape(ori_x)[0]
         ori_width = np.shape(ori_x)[1]
-        modx_test[0,:np.shape(ori_modx)[0],:np.shape(ori_modx)[1],0] = ori_modx[:,:,0]/np.max(ori_modx[:,:,0])
-        modx_test[0,:np.shape(ori_modx)[0],:np.shape(ori_modx)[1],1] = ori_modx[:,:,1]/np.max(ori_modx[:,:,1])
+        # modx_test[0,:np.shape(ori_modx)[0],:np.shape(ori_modx)[1],0] = ori_modx[:,:,0]/np.max(ori_modx[:,:,0])
+        # modx_test[0,:np.shape(ori_modx)[0],:np.shape(ori_modx)[1],1] = ori_modx[:,:,1]/np.max(ori_modx[:,:,1])
         x_test[0,:ori_height,:ori_width,0] = ori_x[:,:,0]/np.max(ori_x[:,:,0])
         x_test[0,:ori_height,:ori_width,1] = ori_x[:,:,1]/np.max(ori_x[:,:,1])
         x_test[0,:ori_height,:ori_width,2] = ori_x[:,:,2]/np.max(ori_x[:,:,2])
@@ -103,8 +103,8 @@ class IonoDataManager():
         art_test[0,:ori_height,:ori_width,:] = art_y[:,:,:]/1.0
         #art_test[0,:,:,:] = refine_gt(art_test[0,:,:,:])
 
-        # return x_test, y_test, art_test
-        return modx_test, y_test, art_test
+        return x_test, y_test, art_test
+        # return modx_test, y_test, art_test
 
     def get_scale_only(self, id):
         """get train batch
@@ -130,7 +130,7 @@ class IonoDataManager():
 
 if __name__ == '__main__':
     import yaml
-    cfgs = yaml.load(open('C:/Users/wangj/Documents/GitHub/SmartRadarAssistant/DIonoAutoScaler/example_config.yaml','r'), Loader=yaml.BaseLoader)
+    cfgs = yaml.load(open('E:\zju\AtuomaticScaling\DIAS/my_config.yaml','r'), Loader=yaml.BaseLoader)
     dataManager = IonoDataManager(cfgs)
     
     x_train, y_train = dataManager.get_train_batch()

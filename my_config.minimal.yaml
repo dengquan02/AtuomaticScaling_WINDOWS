@@ -3,8 +3,8 @@
 # Data Parameters
 Data:
     BasePath: ./dataset/
-    TrainListFile: train.lst
-    TestListFile: test.lst
+    TrainListFile: train_min.lst
+    TestListFile: test_min.lst
     PadHeight: 512
     PadWidth: 512
     ChannelNum: 3
@@ -22,7 +22,7 @@ Model:
     Metric: F_score
 
 Train:
-    TotalStep: 20        # 快速演示用小步数
+    TotalStep: 20        # short smoke-test run
     PrintInterval: 5
     SaveInterval: 10
     PlotInterval: 10
@@ -31,13 +31,13 @@ Train:
     HistLogDir: ./result/minimal/models/
 
 Test:
-    TestSave: AllOutput  # 避免走 OnlyMinHMaxF 分支（依赖额外文件）
+    TestSave: OnlyMinHMaxF
     ModelPath: ./result/minimal/models/STEP_10.model
     PostProcess: None
     SavePath: ./result/minimal/
     ImgSaveDir: ./result/minimal/test_imgs/
     Threshold: 0.3
-    ScaleOnly: True      # 使用 get_scale_only，避免外部 modx 文件依赖
+    ScaleOnly: False
 
 Eval:
     ResultPath: ./result/minimal/MinHMaxF.npy

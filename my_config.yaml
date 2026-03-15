@@ -71,14 +71,15 @@ Train:
 Test:
     # Options: [OnlyMinHMaxF] [AllOutput]
     TestSave: OnlyMinHMaxF
-    ModelPath: E:/zju/AtuomaticScaling/DIAS/result/_FPN_resnet50_Adam/models/STEP_158000.model
+    # ModelPath: E:/zju/AtuomaticScaling/DIAS/result/FPN_resnet50_Adam/models/STEP_158000.model
+    ModelPath: E:/zju/AtuomaticScaling/DIAS/result/FPN_resnet50_Adam/models/STEP_158000_keras3.h5
     PostProcess: None
-    SavePath: E:/zju/AtuomaticScaling/DIAS/result/_FPN_resnet50_Adam/models/
+    SavePath: E:/zju/AtuomaticScaling/DIAS/result/FPN_resnet50_Adam/models/
     # img save dirs's
-    ImgSaveDir: E:/zju/AtuomaticScaling/DIAS/result/_FPN_resnet50_Adam/test_imgs/
+    ImgSaveDir: E:/zju/AtuomaticScaling/DIAS/result/FPN_resnet50_Adam/test_imgs/
     Threshold: 0.3
     ScaleOnly: True
 
 Eval:
-    ResultPath: E:/zju/AtuomaticScaling/DIAS/result/_FPN_resnet50_Adam/models/MinHMaxF.npy
+    ResultPath: E:/zju/AtuomaticScaling/DIAS/result/FPN_resnet50_Adam/models/MinHMaxF.npy
     
