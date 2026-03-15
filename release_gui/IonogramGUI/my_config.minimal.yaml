@@ -1,0 +1,43 @@
+## Deep-learning-base Ionogram Automatic Scaler Configuration File (Minimal)
+
+# Data Parameters
+Data:
+    BasePath: ./dataset/
+    TrainListFile: train_min.lst
+    TestListFile: test_min.lst
+    PadHeight: 512
+    PadWidth: 512
+    ChannelNum: 3
+    ClassNum: 3
+
+# Model Parameters
+Model:
+    Type: FPN
+    Backbone: resnet50
+    BackboneWeights: None
+    PyramidBlockFilters: 256
+    Optimizer: Adam
+    LearningRate: 0.0001
+    Loss: BinaryFocalLoss
+    Metric: F_score
+
+Train:
+    TotalStep: 20        # short smoke-test run
+    PrintInterval: 5
+    SaveInterval: 10
+    PlotInterval: 10
+    ImgSaveDir: ./result/minimal/vis_imgs/
+    ModelSaveDir: ./result/minimal/models/
+    HistLogDir: ./result/minimal/models/
+
+Test:
+    TestSave: OnlyMinHMaxF
+    ModelPath: ./result/minimal/models/STEP_10.model
+    PostProcess: None
+    SavePath: ./result/minimal/
+    ImgSaveDir: ./result/minimal/test_imgs/
+    Threshold: 0.3
+    ScaleOnly: False
+
+Eval:
+    ResultPath: ./result/minimal/MinHMaxF.npy
